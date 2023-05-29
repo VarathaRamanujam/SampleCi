@@ -22,7 +22,7 @@ jobs:
         run: ant  # Assuming you have the 'build.xml' file in the repository root
 
       - name: Set up Docker
-        uses: docker/setup-docker@v1
+        uses: varatharamanujam/java-cicd-githubaction
 
       - name: Build Docker image and push to Docker Hub
         uses: docker/build-push-action@v2
