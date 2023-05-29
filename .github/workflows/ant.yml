@@ -26,4 +26,4 @@ jobs:
           java-version: '11'
 
       - name: Run Ant build
-        run: ant jar
+        run: ant jar -Ddistribution=your_distribution_value
