@@ -1,26 +1,37 @@
-name: Build JAR with Ant
+name: Docker Build and Push
 
 on:
   push:
     branches:
-      - main
+      - main  # Change this to the branch where you want the action to trigger
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Java
+      - name: Set up JDK  # If Java is not already set up
         uses: actions/setup-java@v2
         with:
-          java-version: '11'
-
-      - name: Install Ant
-        run: sudo apt-get update && sudo apt-get install -y ant
+          java-version: '11'  # Specify the desired Java version
 
       - name: Build JAR
-        run: ant jar
+        run: ant  # Assuming you have the 'build.xml' file in the repository root
+
+      - name: Set up Docker
+        uses: docker/setup-docker@v1
+
+      - name: Build Docker image and push to Docker Hub
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: your-docker-username/your-docker-image-name:latest
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+
 
