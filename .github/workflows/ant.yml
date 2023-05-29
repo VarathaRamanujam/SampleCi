@@ -22,14 +22,14 @@ jobs:
         run: ant  # Assuming you have the 'build.xml' file in the repository root
 
       - name: Set up Docker
-        uses: varatharamanujam/java-cicd-githubaction
+        uses: docker/setup-docker@v1
 
       - name: Build Docker image and push to Docker Hub
         uses: docker/build-push-action@v2
         with:
           context: .
           push: true
-          tags: your-docker-username/your-docker-image-name:latest
+          tags:  varatharamanujam/java-cicd-githubaction
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
